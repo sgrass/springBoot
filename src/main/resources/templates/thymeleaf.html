@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+<script type="text/javascript">
+	function selClick(key) {
+		alert(key);
+	}
+</script>
+</head>
+<body>
+	11111111111
+	<p th:text="${hello}"></p>
+ 
+ 	<input type="text" th:value="${hello}" value="1"/>
+ 	
+ 	<select onchange="selClick(this.options[this.selectedIndex].value)">
+ 		<option th:each="map,iterStat:${resMap}" th:selected="(${map.key} eq 33)" th:text="${map.value}" th:value="${map.key}"></option>
+ 	</select>
+ 	
+ 	<br/><br/>
+ 	
+ 	<table width="50%">
+ 		<tr>
+ 			<td>iterStat.index当前迭代对象的index（从0开始计算）</td>
+ 			<td>iterStat.count当前迭代对象的index(从1开始计算)</td>
+ 			<td>iterStat.current当前迭代变量</td>
+ 			<td>iterStat.size被迭代对象的大小</td>
+ 			<td>map.key</td>
+ 			<td>map.value</td>
+ 		</tr>
+ 		<tr th:each="map,iterStat:${resMap}">
+ 			<td th:text="${iterStat.index}"></td>
+ 			<td th:text="${iterStat.current}"></td>
+ 			<td th:text="${iterStat.count}"></td>
+ 			<td th:text="${iterStat.size}"></td>
+ 			
+ 			<td th:text="${map.key}"></td>
+ 			<td th:text="${map.value}"></td>
+ 		</tr>
+ 	</table>
+ 	
+ 	<input type="radio" name="sex"/>man
+ 	<input type="radio" name="sex" th:checked="${1==1}"/>woman
+ 	
+ 	<p th:each="arrList,iterStat:${#numbers.sequence(1,5)}" th:text="${iterStat.index}+'---'+${arrList}"/>
+ 	<p th:each="arrList,iterStat:${#numbers.sequence(1,5)}" th:text="|${iterStat.index}----${arrList}|"/>
+ 	
+ 	<a th:if="${hello eq 'hello world.....'}" th:href="@{~/thymeleaf/test}">display</a>
+ 	
+ 	<p th:text="${#dates.createNow()}"/>
+ 	<p th:text="${#dates.format(date, 'yyyy-MM-dd HH:mm:ss')}"/>
+ 	
+</body>
+</html>

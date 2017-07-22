@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -35,4 +36,16 @@ public class HelloController {
 		System.out.println(123);
 		return "aa.html";
 	}
+	
+	@RequestMapping(value = "/log")
+  @ResponseBody
+  public String log(){
+      //日志级别从低到高分为TRACE < DEBUG < INFO < WARN < ERROR < FATAL，如果设置为WARN，则低于WARN的信息都不会输出。
+      log.trace("日志输出 trace");
+      log.debug("日志输出 debug");
+      log.info("日志输出 info");
+      log.warn("日志输出 warn");
+      log.error("日志输出 error");
+      return "aaa";
+  }
 }

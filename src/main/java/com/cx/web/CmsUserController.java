@@ -1,8 +1,10 @@
 package com.cx.web;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,9 @@ public class CmsUserController {
 	@Autowired
 	private CmsUserService cmsUserService;
 	
+  @Autowired
+  private RedisTemplate<String, Object> redisTemplate;
+	
 	@RequestMapping(value="queryAll")
 	public List<CmsUser> queryAll() {
 		//分页,第一页，2条
@@ -32,6 +37,16 @@ public class CmsUserController {
 	
 	@RequestMapping(value="queryById/{id}")
 	public CmsUser queryById(@PathVariable Integer id) {
-		return cmsUserService.queryById(id);
+	  redisTemplate.opsForValue().set("bbb", "aaa", 5L, TimeUnit.SECONDS);
+	  redisTemplate.opsForHash().put("test", "1", "AAAAAAA");
+	  
+	  CmsUser cmsUser= null;
+	  if (redisTemplate.hasKey("user")) {
+	    cmsUser = (CmsUser) redisTemplate.opsForValue().get("user");
+	  } else {
+	    cmsUser = cmsUserService.queryById(id);
+	    redisTemplate.opsForValue().set("user",cmsUser, 5, TimeUnit.SECONDS);
+	  }
+		return cmsUser;
 	}
 }

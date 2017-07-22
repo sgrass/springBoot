@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-	<property name="APP_Name" value="hy_app3.0" />
-	<contextName>${APP_Name}</contextName>
+  <property name="APP_Name" value="springBoot" />
+  <contextName>${APP_Name}</contextName>
 
 <!-- 控制台输出 -->
-	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-		
-		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %class{36} %L %M - %msg%xEx%n</pattern>
-		</encoder>
-		
-	</appender>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %class{36} %L %M - %msg%xEx%n</pattern>
+    </encoder>
+    
+  </appender>
 
 
 <!-- 文件存留 -->
   <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
   <!-- 最新日志存放位置 -->
-    <file>/var/log/whwb/wh_evening_news_55.log</file>
+    <file>/Users/grass/Downloads/wh_evening_news.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
       <!-- 拆分后存放位置 及拆分规则-->
-      <fileNamePattern>/var/log/whwb/wh_evening_news_55-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <fileNamePattern>/Users/grass/Downloads/wh_evening_news-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
        <!-- 当文件超过app30.log超过100M，拆分存App30带日期.txt-->
        <maxFileSize>100MB</maxFileSize>    
        <!--日志文件保留最大数60个 -->
@@ -32,16 +32,16 @@
       <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %class{36} %L %M - %msg%xEx%n</pattern>
     </encoder>
   </appender>
-	
-	<!-- 精细化配置，这个类只存ERROR级别日志，优先级大于ROOT级别 -->
-	<logger name="org.springframework.scheduling" level="ERROR" additivity="false">  
-    	<appender-ref ref="CONSOLE"/>  
-    	<appender-ref ref="ROLLING"/> 
-  	</logger>   
+  
+  <!-- 精细化配置，这个类只存ERROR级别日志，优先级大于ROOT级别 -->
+  <logger name="org.springframework.scheduling" level="ERROR" additivity="false">  
+      <appender-ref ref="CONSOLE"/>  
+      <appender-ref ref="ROLLING"/> 
+    </logger>   
 
-	<!--默认配置 ，输出调试级别日志，上生产应改为ERROR级别日志，官方文档说明支持实时修改，修改后5分钟生效-->
-	<root level="DEBUG">
-		<appender-ref ref="CONSOLE" />
-		<appender-ref ref="ROLLING" />
-	</root>
+  <!--默认配置 ，输出调试级别日志，上生产应改为ERROR级别日志，官方文档说明支持实时修改，修改后5分钟生效-->
+  <root level="DEBUG">
+    <appender-ref ref="CONSOLE" />
+    <appender-ref ref="ROLLING" />
+  </root>
 </configuration>
